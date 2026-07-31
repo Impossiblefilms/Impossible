@@ -1,0 +1,17 @@
+---
+import ProjectLayout from '../../../layouts/ProjectLayout.astro';
+import { getAllProjects, getAdjacentProjects } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const projects = await getAllProjects();
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { next } = await getAdjacentProjects(project.slug);
+---
+
+<ProjectLayout project={project} next={next} lang="en" />

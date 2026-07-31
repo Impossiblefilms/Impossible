@@ -1,0 +1,16 @@
+{
+  "slug": "milka",
+  "order": 6,
+  "title": "Milka",
+  "client": "Milka",
+  "category": "commercial",
+  "vimeoId": "1111609492",
+  "thumbnail": "/images/projects/milka.jpg",
+  "previewVideo": "/video/previews/milka.mp4",
+  "accentColor": "#241b2b",
+  "description": {
+    "de": "Werbefilm für Milka.",
+    "en": "Commercial for Milka."
+  },
+  "featured": true
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "yuri-haal-pick-me",
+  "order": 2,
+  "title": "Pick Me",
+  "client": "Yuri Haal",
+  "category": "music-video",
+  "vimeoId": "1214626936",
+  "thumbnail": "/images/projects/yuri-haal-pick-me.jpg",
+  "previewVideo": "/video/previews/yuri-haal-pick-me.mp4",
+  "previewZoom": 1.35,
+  "accentColor": "#151e26",
+  "description": {
+    "de": "Musikvideo für Yuri Haal — „Pick Me“.",
+    "en": "Music video for Yuri Haal — \"Pick Me\"."
+  },
+  "featured": false
+}

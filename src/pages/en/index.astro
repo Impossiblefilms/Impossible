@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/hero/Hero.astro';
+import ProjectGrid from '../../components/portfolio/ProjectGrid.astro';
+import AboutSection from '../../components/studio/AboutSection.astro';
+import ContactSection from '../../components/contact/ContactSection.astro';
+import { getAllProjects } from '../../lib/content';
+
+const projects = await getAllProjects();
+---
+
+<BaseLayout lang="en">
+  <Hero lang="en" />
+  <ProjectGrid projects={projects} lang="en" />
+  <AboutSection lang="en" />
+  <ContactSection lang="en" />
+</BaseLayout>

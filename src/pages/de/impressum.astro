@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { company } from '../../lib/company';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('de');
+---
+
+<BaseLayout lang="de" title={t('legal.imprint.title')}>
+  <section class="mx-auto max-w-2xl px-6 pb-24 pt-40 font-body text-paper-200 md:px-10">
+    <h1 class="font-display uppercase text-paper-50" style="font-size: var(--text-h2);">
+      {t('legal.imprint.title')}
+    </h1>
+    <p class="mt-4 text-sm italic text-paper-400">
+      Entwurf — Platzhaltertext, bitte vor Veröffentlichung rechtlich prüfen und vervollständigen lassen.
+    </p>
+
+    <div class="mt-10 space-y-8 text-sm leading-relaxed">
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Angaben gemäß § 5 TMG</h2>
+        <p>
+          {company.name}<br />
+          {company.street}<br />
+          {company.postalCode} {company.city}
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Vertreten durch</h2>
+        <p>[TODO: Name der/des Vertretungsberechtigten]</p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Kontakt</h2>
+        <p>
+          Telefon: {company.phone}<br />
+          E-Mail: {company.email}
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Registereintrag</h2>
+        <p>
+          [TODO: Registergericht]<br />
+          [TODO: Registernummer]
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Umsatzsteuer-ID</h2>
+        <p>[TODO: USt-IdNr. gemäß § 27 a UStG]</p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">
+          Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV
+        </h2>
+        <p>
+          {company.name}<br />
+          {company.street}, {company.postalCode} {company.city}
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

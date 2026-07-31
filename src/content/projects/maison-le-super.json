@@ -1,0 +1,17 @@
+{
+  "slug": "maison-le-super",
+  "order": 9,
+  "title": "Maison le Super",
+  "client": "Maison le Super",
+  "category": "branded",
+  "vimeoId": "1045027003",
+  "thumbnail": "/images/projects/maison-le-super.jpg",
+  "previewVideo": "/video/previews/maison-le-super.mp4",
+  "previewZoom": 1.15,
+  "accentColor": "#241d1b",
+  "description": {
+    "de": "Branded-Content für Maison le Super.",
+    "en": "Branded content for Maison le Super."
+  },
+  "featured": false
+}

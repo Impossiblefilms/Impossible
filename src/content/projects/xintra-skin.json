@@ -1,0 +1,17 @@
+{
+  "slug": "xintra-skin",
+  "order": 1,
+  "title": "Xintra Skin",
+  "client": "Xintra Skin",
+  "category": "commercial",
+  "vimeoId": "1214624270",
+  "thumbnail": "/images/projects/xintra-skin.jpg",
+  "previewVideo": "/video/previews/xintra-skin.mp4",
+  "previewZoom": 1.35,
+  "accentColor": "#2a1010",
+  "description": {
+    "de": "Werbefilm für Xintra Skin.",
+    "en": "Commercial for Xintra Skin."
+  },
+  "featured": false
+}

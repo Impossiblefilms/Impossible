@@ -1,0 +1,92 @@
+---
+interface Props {
+  label: string;
+  class?: string;
+}
+
+const { label, class: className } = Astro.props;
+
+// Left-to-right reading order of the "IMPOSSIBLE" vector paths, taken from
+// the source logo (public/logo/impossible-wordmark-source.svg). The strike
+// line is kept separate and rendered last, both in the DOM (so it paints on
+// top of the letters) and in the animation (so it lands last).
+const letters = [
+  'M74.82,26.1h6.56v35.3h-6.56V26.1Z',
+  'M127.36,61.4l-.05-27.23-13.06,12.35h0l-13.06-12.4v27.28h-6.25V26.1h5.4l14.02,12.56,13.77-12.56h5.39l.05,35.3h-6.2Z',
+  'M176.67,43.75c0,7.77-5.75,12.56-15.03,12.56h-7.97v5.09h-6.56V26.1h14.52c15.03,0,15.03,9.83,15.03,17.65ZM170.06,43.75c0-4.44,1.45-12.1-8.72-12.1h-7.66v19.11h7.66c5.75,0,8.72-2.57,8.72-7.01Z',
+  'M185.24,43.75c0-10.44,8.07-18.15,19.01-18.15s19.01,7.66,19.01,18.15-8.07,18.15-19.01,18.15-19.01-7.72-19.01-18.15ZM216.65,43.75c0-7.21-5.29-12.4-12.4-12.4s-12.4,5.19-12.4,12.4,5.29,12.41,12.4,12.41,12.4-5.2,12.4-12.41Z',
+  'M231.27,57.66l2.27-5.09c2.82,2.27,7.31,3.88,11.65,3.88,5.5,0,7.82-1.97,7.82-4.59,0-7.61-20.98-2.62-20.98-15.73,0-5.7,4.54-10.54,14.22-10.54,4.24,0,8.67,1.11,11.75,3.13l-2.07,5.09c-3.18-1.86-6.66-2.77-9.73-2.77-5.45,0-7.66,2.12-7.66,4.79,0,7.51,20.93,2.62,20.93,15.58,0,5.65-4.59,10.49-14.27,10.49-5.5,0-10.99-1.71-13.92-4.24Z',
+  'M267.01,57.66l2.27-5.09c2.82,2.27,7.31,3.88,11.65,3.88,5.5,0,7.82-1.97,7.82-4.59,0-7.61-20.98-2.62-20.98-15.73,0-5.7,4.54-10.54,14.22-10.54,4.24,0,8.67,1.11,11.75,3.13l-2.07,5.09c-3.18-1.86-6.66-2.77-9.73-2.77-5.45,0-7.66,2.12-7.66,4.79,0,7.51,20.93,2.62,20.93,15.58,0,5.65-4.59,10.49-14.27,10.49-5.5,0-10.99-1.71-13.92-4.24Z',
+  'M305.73,26.1h6.56v35.3h-6.56V26.1Z',
+  'M357.22,51.81c0,6.05-4.74,9.58-13.82,9.58h-17.55V26.1h16.54c8.47,0,13.01,3.58,13.01,9.18,0,3.63-1.82,6.3-4.54,7.77,3.78,1.21,6.35,4.19,6.35,8.77ZM332.41,31.24v9.73h9.28c4.54,0,7.11-1.61,7.11-4.84s-2.57-4.89-7.11-4.89h-9.28ZM350.61,51.16c0-3.53-2.67-5.09-7.61-5.09h-10.59v10.19h10.59c4.94,0,7.61-1.56,7.61-5.09Z',
+  'M368.25,26.1h6.56v29.75h18.45v5.55h-25.01V26.1Z',
+  'M428.96,55.9v5.5h-26.47V26.1h25.77v5.5h-19.21v9.18h17.04v5.4h-17.04v9.73h19.92Z',
+];
+
+const strikeLine = 'M22.5,47.02v-6.56h458.1v6.56H22.5Z';
+---
+
+<svg
+  class:list={['logo-mark', className]}
+  viewBox="0 0 502.83 87.49"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label={label}
+>
+  {
+    letters.map((d, i) => (
+      <path class="logo-letter" style={`--i: ${i}`} d={d} fill="currentColor" />
+    ))
+  }
+  <path class="logo-strike" d={strikeLine} fill="currentColor" />
+</svg>
+
+<style>
+  .logo-mark {
+    overflow: visible;
+  }
+
+  .logo-letter {
+    opacity: 0;
+    transform: translateY(0.4em);
+    animation: letter-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(var(--i) * 55ms);
+  }
+
+  .logo-strike {
+    transform-box: fill-box;
+    transform-origin: left center;
+    transform: scaleX(0);
+    animation: strike-in 0.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation-delay: 1.05s;
+  }
+
+  @keyframes letter-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.4em);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes strike-in {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-letter,
+    .logo-strike {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

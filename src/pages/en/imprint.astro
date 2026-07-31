@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { company } from '../../lib/company';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('en');
+---
+
+<BaseLayout lang="en" title={t('legal.imprint.title')}>
+  <section class="mx-auto max-w-2xl px-6 pb-24 pt-40 font-body text-paper-200 md:px-10">
+    <h1 class="font-display uppercase text-paper-50" style="font-size: var(--text-h2);">
+      {t('legal.imprint.title')}
+    </h1>
+    <p class="mt-4 text-sm italic text-paper-400">
+      Draft — placeholder content, please have this reviewed and completed by a lawyer before
+      publishing. The German version is legally binding.
+    </p>
+
+    <div class="mt-10 space-y-8 text-sm leading-relaxed">
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Information according to § 5 TMG</h2>
+        <p>
+          {company.name}<br />
+          {company.street}<br />
+          {company.postalCode} {company.city}
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Represented by</h2>
+        <p>[TODO: Name of authorized representative]</p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Contact</h2>
+        <p>
+          Phone: {company.phone}<br />
+          Email: {company.email}
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Register entry</h2>
+        <p>
+          [TODO: Register court]<br />
+          [TODO: Register number]
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">VAT ID</h2>
+        <p>[TODO: VAT identification number per § 27a UStG]</p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">
+          Responsible for content per § 18 (2) MStV
+        </h2>
+        <p>
+          {company.name}<br />
+          {company.street}, {company.postalCode} {company.city}
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

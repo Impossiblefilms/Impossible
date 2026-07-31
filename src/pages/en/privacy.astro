@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('en');
+---
+
+<BaseLayout lang="en" title={t('legal.privacy.title')}>
+  <section class="mx-auto max-w-2xl px-6 pb-24 pt-40 font-body text-paper-200 md:px-10">
+    <h1 class="font-display uppercase text-paper-50" style="font-size: var(--text-h2);">
+      {t('legal.privacy.title')}
+    </h1>
+    <p class="mt-4 text-sm italic text-paper-400">
+      Draft — placeholder content, please have this reviewed and completed by a lawyer before
+      publishing. The German version is legally binding.
+    </p>
+
+    <div class="mt-10 space-y-8 text-sm leading-relaxed">
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">1. Controller</h2>
+        <p>[TODO: Name, address and contact details of the controller — see imprint]</p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">2. General information</h2>
+        <p>
+          We generally only process personal data of our users to the extent necessary to provide a
+          functioning website along with our content and services.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">3. Hosting</h2>
+        <p>
+          [TODO: Add hosting provider details once the site goes live (likely Hostinger). Server log
+          files (e.g. IP address, date/time, page requested) are automatically collected by the
+          hosting provider when the website is accessed.]
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">4. Cookies</h2>
+        <p>
+          This website does not currently use tracking or marketing cookies. Should this change (e.g.
+          through analytics tools), this notice will be updated and a consent banner will be added.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">5. Embedded videos (Vimeo)</h2>
+        <p>
+          To display our projects, videos from Vimeo (Vimeo Inc., 555 West 18th Street, New York,
+          USA) may be embedded. Playing a video may establish a connection to Vimeo's servers and
+          transmit data (including your IP address) to Vimeo. [TODO: add a link to Vimeo's privacy
+          policy once embeds are actively used.]
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">6. Contacting us</h2>
+        <p>
+          When you contact us by email, the data you provide (including your email address, and
+          optionally your name and phone number) will be stored in order to process your inquiry.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">7. Your rights</h2>
+        <p>
+          You have the right to access, rectify, erase and restrict the processing of your personal
+          data, as well as a right to object to processing and a right to data portability. You also
+          have the right to lodge a complaint with a data protection supervisory authority.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

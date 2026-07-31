@@ -1,0 +1,16 @@
+{
+  "slug": "sixt-cora-schumacher",
+  "order": 5,
+  "title": "Cora Schumacher",
+  "client": "Sixt",
+  "category": "commercial",
+  "vimeoId": "1111612947",
+  "thumbnail": "/images/projects/sixt-cora-schumacher.jpg",
+  "previewVideo": "/video/previews/sixt-cora-schumacher.mp4",
+  "accentColor": "#2b2420",
+  "description": {
+    "de": "Kampagnenfilm für Sixt mit Cora Schumacher.",
+    "en": "Campaign film for Sixt featuring Cora Schumacher."
+  },
+  "featured": true
+}

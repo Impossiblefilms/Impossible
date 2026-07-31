@@ -1,0 +1,16 @@
+{
+  "slug": "flensburger",
+  "order": 3,
+  "title": "Flensburger",
+  "client": "Flensburger",
+  "category": "commercial",
+  "vimeoId": "1214628060",
+  "thumbnail": "/images/projects/flensburger.jpg",
+  "previewVideo": "/video/previews/flensburger.mp4",
+  "accentColor": "#241f1a",
+  "description": {
+    "de": "Werbefilm für Flensburger.",
+    "en": "Commercial for Flensburger."
+  },
+  "featured": false
+}

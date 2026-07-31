@@ -1,0 +1,16 @@
+{
+  "slug": "casino-stugan",
+  "order": 12,
+  "title": "Casino Stugan",
+  "client": "Casino Stugan",
+  "category": "documentary",
+  "vimeoId": "492115809",
+  "thumbnail": "/images/projects/casino-stugan.jpg",
+  "previewVideo": "/video/previews/casino-stugan.mp4",
+  "accentColor": "#1a1e26",
+  "description": {
+    "de": "Dokumentarischer Branded-Content über Casino Stugan.",
+    "en": "Documentary branded content about Casino Stugan."
+  },
+  "featured": false
+}

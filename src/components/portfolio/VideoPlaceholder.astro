@@ -1,0 +1,59 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Project } from '../../lib/types';
+
+interface Props {
+  project: Project;
+  // Grid cards show the static thumbnail (with a play affordance) and only
+  // the project detail page actually loads the Vimeo embed — nine
+  // autoplaying iframes on one page would be wasteful and slow.
+  playEmbed?: boolean;
+}
+
+const { project, playEmbed = false } = Astro.props;
+const showEmbed = playEmbed && project.vimeoId;
+const showThumbnail = !showEmbed && project.thumbnail;
+---
+
+<div class="relative aspect-video w-full overflow-hidden rounded-2xl bg-ink-900">
+  {
+    showEmbed ? (
+      <iframe
+        class="absolute inset-0 h-full w-full"
+        src={`https://player.vimeo.com/video/${project.vimeoId}?title=0&byline=0&portrait=0`}
+        loading="lazy"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        title={project.title}
+      />
+    ) : showThumbnail ? (
+      <>
+        <img
+          src={project.thumbnail}
+          alt={project.title}
+          loading="lazy"
+          class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+        {project.vimeoId && (
+          <span class="absolute inset-0 flex items-center justify-center bg-ink-950/0 transition-colors group-hover:bg-ink-950/20">
+            <span class="flex h-14 w-14 items-center justify-center rounded-full bg-paper-50/90 text-ink-950 opacity-0 transition-opacity group-hover:opacity-100">
+              <Icon name="lucide:play" class="ml-0.5 h-6 w-6" />
+            </span>
+          </span>
+        )}
+      </>
+    ) : (
+      <div
+        class="absolute inset-0 flex items-center justify-center px-4"
+        style={`background-color: ${project.accentColor};`}
+      >
+        <span
+          class="text-center font-display uppercase leading-[0.9] text-paper-50/90"
+          style="font-size: clamp(1.25rem, 3.5vw, 2.5rem);"
+        >
+          {project.title}
+        </span>
+      </div>
+    )
+  }
+</div>

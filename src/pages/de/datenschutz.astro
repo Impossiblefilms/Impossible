@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('de');
+---
+
+<BaseLayout lang="de" title={t('legal.privacy.title')}>
+  <section class="mx-auto max-w-2xl px-6 pb-24 pt-40 font-body text-paper-200 md:px-10">
+    <h1 class="font-display uppercase text-paper-50" style="font-size: var(--text-h2);">
+      {t('legal.privacy.title')}
+    </h1>
+    <p class="mt-4 text-sm italic text-paper-400">
+      Entwurf — Platzhaltertext, bitte vor Veröffentlichung rechtlich prüfen und vervollständigen lassen.
+    </p>
+
+    <div class="mt-10 space-y-8 text-sm leading-relaxed">
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">1. Verantwortlicher</h2>
+        <p>[TODO: Name, Anschrift, Kontakt des Verantwortlichen — siehe Impressum]</p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">2. Allgemeines zur Datenverarbeitung</h2>
+        <p>
+          Wir verarbeiten personenbezogene Daten unserer Nutzer grundsätzlich nur, soweit dies zur
+          Bereitstellung einer funktionsfähigen Website sowie unserer Inhalte und Leistungen
+          erforderlich ist.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">3. Hosting</h2>
+        <p>
+          [TODO: Angaben zum Hosting-Anbieter ergänzen, sobald die Seite live geschaltet ist
+          (voraussichtlich Hostinger). Beim Aufruf der Website werden durch den Hosting-Anbieter
+          automatisch Server-Logfiles erhoben (z. B. IP-Adresse, Datum/Uhrzeit, aufgerufene Seite).]
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">4. Cookies</h2>
+        <p>
+          Diese Website setzt aktuell keine Tracking- oder Marketing-Cookies ein. Sollte sich dies
+          ändern (z. B. durch Analyse-Tools), wird diese Erklärung entsprechend aktualisiert und ein
+          Consent-Banner eingebunden.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">5. Eingebettete Videos (Vimeo)</h2>
+        <p>
+          Für die Darstellung unserer Projekte können Videos des Anbieters Vimeo (Vimeo Inc., 555 West
+          18th Street, New York, USA) eingebunden werden. Beim Abspielen eines Videos kann eine
+          Verbindung zu Servern von Vimeo hergestellt und dabei Daten (u. a. IP-Adresse) an Vimeo
+          übertragen werden. [TODO: Verlinkung auf die Datenschutzerklärung von Vimeo ergänzen, sobald
+          Embeds aktiv genutzt werden.]
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">6. Kontaktaufnahme</h2>
+        <p>
+          Bei einer Kontaktaufnahme per E-Mail werden die von Ihnen mitgeteilten Daten (u. a.
+          E-Mail-Adresse, ggf. Name und Telefonnummer) von uns gespeichert, um Ihre Anfrage zu
+          bearbeiten.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">7. Ihre Rechte</h2>
+        <p>
+          Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der
+          Verarbeitung Ihrer personenbezogenen Daten sowie ein Widerspruchsrecht gegen die
+          Verarbeitung und ein Recht auf Datenübertragbarkeit. Zudem steht Ihnen ein
+          Beschwerderecht bei einer Datenschutzaufsichtsbehörde zu.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

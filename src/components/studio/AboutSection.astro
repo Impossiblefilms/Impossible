@@ -1,0 +1,21 @@
+---
+import { useTranslations, type Locale } from '../../i18n/utils';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="studio" class="border-t border-ink-800 px-6 py-24 md:px-10">
+  <div class="mx-auto max-w-[1800px]">
+    <p class="reveal mb-6 font-body text-xs uppercase tracking-[0.2em] text-paper-400">
+      {t('studio.title')}
+    </p>
+    <p class="reveal max-w-4xl font-display text-h2 uppercase leading-[1.05] text-paper-50" style="font-size: var(--text-h2);">
+      {t('studio.body')}
+    </p>
+  </div>
+</section>

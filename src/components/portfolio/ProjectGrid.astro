@@ -1,0 +1,175 @@
+---
+import type { Project } from '../../lib/types';
+import ProjectCard from './ProjectCard.astro';
+import { useTranslations, type Locale } from '../../i18n/utils';
+
+interface Props {
+  projects: Project[];
+  lang: Locale;
+}
+
+const { projects, lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Repeating three-item choreography, cycling every trio. New work is always
+// prepended (lowest order = first), so trio 0 — the newest batch — is
+// deliberately the "equal" pattern: fresh additions land as a compact small
+// row up top rather than immediately claiming a large slot.
+// 0) three equal tiles in a row
+// 1) one large tile + two stacked small ones to its right
+// 2) two stacked small tiles + one large one to their right (mirrored)
+function chunk<T>(arr: T[], size: number): T[][] {
+  const chunks: T[][] = [];
+  for (let i = 0; i < arr.length; i += size) chunks.push(arr.slice(i, i + size));
+  return chunks;
+}
+
+const groups = chunk(projects, 3);
+---
+
+<section id="work" class="mx-auto max-w-[1800px] px-6 py-24 md:px-10">
+  <h2 class="reveal mb-12 font-display text-h1 uppercase leading-none text-paper-50" style="font-size: var(--text-h1);">
+    {t('work.title')}
+  </h2>
+
+  <div class="flex flex-col gap-14">
+    {
+      groups.map((group, i) => {
+        const pattern = group.length === 3 ? i % 3 : 0;
+
+        if (pattern === 1) {
+          const [big, top, bottom] = group;
+          return (
+            <div class="trio trio-big-left gap-6">
+              <div style="grid-area: big;">
+                <ProjectCard project={big} lang={lang} large />
+              </div>
+              <div style="grid-area: top;">
+                <ProjectCard project={top} lang={lang} />
+              </div>
+              <div style="grid-area: bottom;">
+                <ProjectCard project={bottom} lang={lang} />
+              </div>
+            </div>
+          );
+        }
+
+        if (pattern === 2) {
+          const [top, bottom, big] = group;
+          return (
+            <div class="trio trio-big-right gap-6">
+              <div style="grid-area: top;">
+                <ProjectCard project={top} lang={lang} />
+              </div>
+              <div style="grid-area: bottom;">
+                <ProjectCard project={bottom} lang={lang} />
+              </div>
+              <div style="grid-area: big;">
+                <ProjectCard project={big} lang={lang} large />
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {group.map((project) => (
+              <ProjectCard project={project} lang={lang} />
+            ))}
+          </div>
+        );
+      })
+    }
+  </div>
+</section>
+
+<style>
+  .trio {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (min-width: 768px) {
+    .trio-big-left {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas: 'big top' 'big bottom';
+    }
+
+    .trio-big-right {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas: 'top big' 'bottom big';
+    }
+  }
+</style>
+
+<script>
+  import Player from '@vimeo/player';
+
+  // Desktop-only: short 5s muted loop preview on hover, driven by the
+  // official Vimeo Player SDK so we can seek back to 0 at the 5s mark.
+  // Skipped on touch devices — there's no hover there, and preloading 9
+  // background iframes on a mobile connection would be wasteful.
+  const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  if (supportsHover) {
+    const cards = document.querySelectorAll<HTMLAnchorElement>('.project-card[data-preview-id]');
+
+    cards.forEach((card) => {
+      const vimeoId = card.dataset.previewId;
+      if (!vimeoId) return;
+
+      const frame = card.querySelector<HTMLElement>('.preview-frame');
+      const mount = card.querySelector<HTMLElement>('.preview-mount');
+      const cursorPill = card.querySelector<HTMLElement>('.cursor-pill');
+      if (!frame || !mount) return;
+
+      let player: Player | null = null;
+      let hoverTimer: number | undefined;
+
+      const ensurePlayer = () => {
+        if (player) return player;
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://player.vimeo.com/video/${vimeoId}?background=1&autopause=0`;
+        iframe.title = card.dataset.title ?? '';
+        iframe.allow = 'autoplay';
+        iframe.className = 'absolute inset-0 h-full w-full';
+        mount.appendChild(iframe);
+        player = new Player(iframe);
+        player.on('timeupdate', (data: { seconds: number }) => {
+          if (data.seconds >= 5) player?.setCurrentTime(0);
+        });
+        return player;
+      };
+
+      card.addEventListener('mouseenter', () => {
+        hoverTimer = window.setTimeout(() => {
+          const p = ensurePlayer();
+          mount.classList.remove('opacity-0');
+          p.play().catch(() => {});
+        }, 150);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        window.clearTimeout(hoverTimer);
+        mount.classList.add('opacity-0');
+        player?.pause();
+        if (cursorPill) cursorPill.style.opacity = '0';
+      });
+
+      frame.addEventListener('mousemove', (event) => {
+        if (!cursorPill) return;
+        const rect = frame.getBoundingClientRect();
+        cursorPill.style.transform = `translate(${event.clientX - rect.left}px, ${event.clientY - rect.top}px)`;
+        cursorPill.style.opacity = '1';
+      });
+
+      frame.addEventListener('mouseleave', () => {
+        if (cursorPill) cursorPill.style.opacity = '0';
+      });
+    });
+  }
+</script>

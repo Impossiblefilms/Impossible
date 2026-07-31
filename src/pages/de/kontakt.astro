@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { company } from '../../lib/company';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('de');
+
+const socialLinks = [
+  { href: 'https://vimeo.com/impossiblefilm', label: 'Vimeo', icon: 'lucide:play' },
+  { href: 'https://www.instagram.com/impossiblefilms.de/', label: 'Instagram', icon: 'lucide:instagram' },
+];
+---
+
+<BaseLayout lang="de" title={t('nav.contact')}>
+  <section class="mx-auto max-w-[1800px] px-6 pb-24 pt-40 md:px-10">
+    <h1 class="font-display uppercase leading-none text-paper-50" style="font-size: var(--text-hero);">
+      {t('contact.title')}
+    </h1>
+    <p class="mt-6 max-w-md font-body text-lead text-paper-400">{t('contact.body')}</p>
+
+    <dl class="mt-16 grid grid-cols-1 gap-10 font-body sm:grid-cols-2 lg:grid-cols-3">
+      <div>
+        <dt class="text-xs uppercase tracking-wide text-paper-400">E-Mail</dt>
+        <dd class="mt-2">
+          <a href={`mailto:${company.email}`} class="text-2xl text-paper-50 transition-colors hover:text-paper-400">
+            {company.email}
+          </a>
+        </dd>
+      </div>
+      <div>
+        <dt class="text-xs uppercase tracking-wide text-paper-400">Telefon</dt>
+        <dd class="mt-2">
+          <a href={`tel:${company.phoneHref}`} class="text-2xl text-paper-50 transition-colors hover:text-paper-400">
+            {company.phone}
+          </a>
+        </dd>
+      </div>
+      <div>
+        <dt class="text-xs uppercase tracking-wide text-paper-400">{t('studio.location')}</dt>
+        <dd class="mt-2 text-2xl text-paper-50">
+          {company.street}<br />
+          {company.postalCode} {company.city}
+        </dd>
+      </div>
+    </dl>
+
+    <div class="mt-16 flex items-center gap-6">
+      {
+        socialLinks.map((social) => (
+          <a
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.label}
+            class="text-paper-400 transition-colors hover:text-paper-50"
+          >
+            <Icon name={social.icon} class="h-6 w-6" />
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,16 @@
+{
+  "slug": "bionade",
+  "order": 10,
+  "title": "Bionade",
+  "client": "Bionade",
+  "category": "commercial",
+  "vimeoId": "1045056282",
+  "thumbnail": "/images/projects/bionade.jpg",
+  "previewVideo": "/video/previews/bionade.mp4",
+  "accentColor": "#1c231d",
+  "description": {
+    "de": "Werbefilm für Bionade.",
+    "en": "Commercial for Bionade."
+  },
+  "featured": false
+}

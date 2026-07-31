@@ -1,0 +1,16 @@
+{
+  "slug": "odyssee",
+  "order": 4,
+  "title": "Odyssee",
+  "client": "Impossible Films",
+  "category": "film",
+  "vimeoId": "1111617108",
+  "thumbnail": "/images/projects/odyssee.jpg",
+  "previewVideo": "/video/previews/odyssee.mp4",
+  "accentColor": "#1c2320",
+  "description": {
+    "de": "Eigenproduktion.",
+    "en": "In-house production."
+  },
+  "featured": true
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "ppura",
+  "order": 8,
+  "title": "PPURA",
+  "client": "PPURA",
+  "category": "branded",
+  "vimeoId": "1044971376",
+  "thumbnail": "/images/projects/ppura.jpg",
+  "previewVideo": "/video/previews/ppura.mp4",
+  "accentColor": "#1b2420",
+  "description": {
+    "de": "Branded-Content für PPURA.",
+    "en": "Branded content for PPURA."
+  },
+  "featured": false
+}

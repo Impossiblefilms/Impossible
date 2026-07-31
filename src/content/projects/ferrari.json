@@ -1,0 +1,17 @@
+{
+  "slug": "ferrari",
+  "order": 11,
+  "title": "Ferrari",
+  "client": "Ferrari",
+  "category": "commercial",
+  "vimeoId": "771962253",
+  "thumbnail": "/images/projects/ferrari.jpg",
+  "previewVideo": "/video/previews/ferrari.mp4",
+  "previewZoom": 1.35,
+  "accentColor": "#2b1414",
+  "description": {
+    "de": "Werbefilm für Ferrari.",
+    "en": "Commercial for Ferrari."
+  },
+  "featured": true
+}

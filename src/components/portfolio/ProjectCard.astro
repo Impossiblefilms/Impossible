@@ -1,0 +1,133 @@
+---
+import type { Project } from '../../lib/types';
+import { useTranslations, localizedSegment, type Locale } from '../../i18n/utils';
+
+interface Props {
+  project: Project;
+  lang: Locale;
+  // Large tiles sit in a row-span-2 grid cell (see ProjectGrid.astro) and
+  // stretch to fill it exactly, instead of keeping a fixed aspect-video box.
+  large?: boolean;
+}
+
+const { project, lang, large = false } = Astro.props;
+const t = useTranslations(lang);
+const number = String(project.order).padStart(2, '0');
+const href = `/${lang}/${localizedSegment('work', lang)}/${project.slug}/`;
+
+// Once a trimmed local clip exists it takes over as an always-on, muted
+// loop (GIF-like, no interaction needed). Until then, cards fall back to a
+// hover-triggered Vimeo preview handled by the script in ProjectGrid.astro.
+const hasNativePreview = Boolean(project.previewVideo);
+---
+
+<a
+  href={href}
+  class:list={['project-card group reveal relative block', large && 'md:flex md:h-full md:flex-col']}
+  data-preview-id={hasNativePreview ? '' : (project.vimeoId ?? '')}
+  data-title={project.title}
+>
+  <span
+    class="pointer-events-none absolute -top-3 left-0 z-0 select-none font-display leading-none text-paper-50/[0.07] transition-colors duration-500 group-hover:text-paper-50/[0.14]"
+    style="font-size: clamp(3.5rem, 8vw, 6.5rem);"
+  >
+    {number}
+  </span>
+
+  <div
+    class:list={[
+      'preview-frame relative z-10 aspect-video w-full overflow-hidden rounded-2xl bg-ink-900',
+      large && 'md:aspect-auto md:flex-1',
+    ]}
+  >
+    {
+      project.thumbnail ? (
+        <img
+          src={project.thumbnail}
+          alt={project.title}
+          loading="lazy"
+          class="thumb absolute inset-0 h-full w-full object-cover opacity-90 grayscale-[35%] brightness-90 transition-[transform,opacity,filter] duration-700 ease-out group-hover:scale-[1.06] group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100"
+        />
+      ) : (
+        <div
+          class="absolute inset-0 flex items-center justify-center px-4"
+          style={`background-color: ${project.accentColor};`}
+        >
+          <span
+            class="text-center font-display uppercase leading-[0.9] text-paper-50/90"
+            style="font-size: clamp(1.25rem, 3.5vw, 2.5rem);"
+          >
+            {project.title}
+          </span>
+        </div>
+      )
+    }
+
+    {
+      hasNativePreview ? (
+        <video
+          class="preview-video absolute inset-0 h-full w-full object-cover"
+          style={project.previewZoom ? `--zoom: ${project.previewZoom};` : undefined}
+          src={project.previewVideo}
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+        />
+      ) : (
+        <div class="preview-mount pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500" />
+      )
+    }
+
+    <div class="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-ink-950/70 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+    {
+      hasNativePreview ? (
+        <span class="pointer-events-none absolute inset-0 z-20 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <span class="whitespace-nowrap rounded-full bg-paper-50 px-4 py-2 font-body text-[0.65rem] uppercase tracking-wide text-ink-950">
+            {t('work.watch')}
+          </span>
+        </span>
+      ) : (
+        project.vimeoId && (
+          <span class="cursor-pill pointer-events-none absolute left-0 top-0 z-20 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-paper-50 px-4 py-2 font-body text-[0.65rem] uppercase tracking-wide text-ink-950 opacity-0">
+            {t('work.watch')}
+          </span>
+        )
+      )
+    }
+
+    <span class="pointer-events-none absolute inset-0 rounded-2xl border border-paper-50/0 transition-colors duration-500 group-hover:border-paper-50/20" />
+  </div>
+
+  <div class="relative z-10 mt-4 flex items-start justify-between gap-4 font-body">
+    <div>
+      <p
+        class:list={[
+          'font-display uppercase leading-tight text-paper-50 transition-colors group-hover:text-paper-400',
+          large ? 'text-xl md:text-2xl' : 'text-lg md:text-xl',
+        ]}
+      >
+        {project.client}
+      </p>
+      <p class="text-sm text-paper-400">{project.title}</p>
+    </div>
+  </div>
+</a>
+
+<style>
+  /* previewZoom lets specific projects crop out baked-in letterbox bars
+     (see previewZoom in the project data) — scoped here so it composes
+     cleanly with the existing hover zoom instead of fighting Tailwind's
+     group-hover utility over the same transform property. */
+  .preview-video {
+    transform: scale(var(--zoom, 1));
+    transition: transform 0.7s ease-out;
+  }
+
+  .group:hover .preview-video {
+    transform: scale(calc(var(--zoom, 1) * 1.06));
+  }
+</style>
+

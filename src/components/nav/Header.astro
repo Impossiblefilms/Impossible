@@ -1,0 +1,68 @@
+---
+import { Icon } from 'astro-icon/components';
+import LangSwitcher from './LangSwitcher.astro';
+import MobileMenu from './MobileMenu.astro';
+import { useTranslations, localizedSegment, type Locale } from '../../i18n/utils';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const links = [
+  { href: `/${lang}/#work`, label: t('nav.work') },
+  { href: `/${lang}/#studio`, label: t('nav.studio') },
+  { href: `/${lang}/${localizedSegment('contact', lang)}/`, label: t('nav.contact') },
+];
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-colors duration-300"
+>
+  <div class="mx-auto flex max-w-[1800px] items-center justify-between px-6 py-5 md:px-10">
+    <a href={`/${lang}/`} aria-label={t('site.name')}>
+      <img src="/logo/ipf-mark.png" alt={t('site.name')} class="h-7 w-auto md:h-8" />
+    </a>
+
+    <nav class="hidden items-center gap-8 font-body text-sm uppercase tracking-wide md:flex">
+      {
+        links.map((link) => (
+          <a href={link.href} class="text-paper-200 transition-colors hover:text-paper-50">
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-5">
+      <LangSwitcher lang={lang} />
+      <button
+        id="menu-toggle"
+        type="button"
+        aria-label={t('nav.menu')}
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="flex h-9 w-9 items-center justify-center text-paper-50 md:hidden"
+      >
+        <Icon name="lucide:menu" class="h-6 w-6" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<MobileMenu lang={lang} />
+
+<script>
+  const header = document.getElementById('site-header');
+
+  const updateHeaderState = () => {
+    header?.classList.toggle('bg-ink-950', window.scrollY > 40);
+    header?.classList.toggle('border-ink-700', window.scrollY > 40);
+  };
+
+  updateHeaderState();
+  window.addEventListener('scroll', updateHeaderState, { passive: true });
+</script>

@@ -1,0 +1,16 @@
+{
+  "slug": "deutsche-fernsehlotterie",
+  "order": 7,
+  "title": "Deutsche Fernsehlotterie",
+  "client": "Deutsche Fernsehlotterie",
+  "category": "commercial",
+  "vimeoId": "1044954593",
+  "thumbnail": "/images/projects/deutsche-fernsehlotterie.jpg",
+  "previewVideo": "/video/previews/deutsche-fernsehlotterie.mp4",
+  "accentColor": "#202226",
+  "description": {
+    "de": "Werbefilm für die Deutsche Fernsehlotterie.",
+    "en": "Commercial for Deutsche Fernsehlotterie."
+  },
+  "featured": false
+}

@@ -1,0 +1,49 @@
+---
+import { company } from '../../lib/company';
+import { useTranslations, localizedSegment, type Locale } from '../../i18n/utils';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const href = `/${lang}/${localizedSegment('contact', lang)}/`;
+---
+
+<section class="border-t border-ink-800 px-6 py-24 md:px-10">
+  <div class="mx-auto grid max-w-[1800px] grid-cols-1 gap-12 md:grid-cols-2">
+    <div class="flex flex-col items-start gap-8">
+      <h2 class="reveal font-display uppercase leading-none text-paper-50" style="font-size: var(--text-h1);">
+        {t('contact.title')}
+      </h2>
+      <p class="reveal max-w-md font-body text-lead text-paper-400">{t('contact.body')}</p>
+      <a
+        href={href}
+        class="reveal inline-block border border-paper-50 px-8 py-4 font-body text-sm uppercase tracking-wide text-paper-50 transition-colors hover:bg-paper-50 hover:text-ink-950"
+      >
+        {t('contact.cta')}
+      </a>
+    </div>
+
+    <div class="reveal flex flex-col gap-8 font-body md:items-end md:justify-end md:text-right">
+      <div>
+        <p class="text-xs uppercase tracking-wide text-paper-400">{company.name}</p>
+        <p class="mt-1 text-paper-50">{company.street}</p>
+        <p class="text-paper-50">{company.postalCode} {company.city}</p>
+      </div>
+
+      <div class="flex flex-col gap-1 md:items-end">
+        <a
+          href={`mailto:${company.email}`}
+          class="font-display text-xl text-paper-50 uppercase transition-colors hover:text-paper-400 md:text-2xl"
+        >
+          {company.email}
+        </a>
+        <a href={`tel:${company.phoneHref}`} class="text-paper-400 transition-colors hover:text-paper-50">
+          {company.phone}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

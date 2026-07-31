@@ -1,0 +1,72 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import VideoPlaceholder from '../components/portfolio/VideoPlaceholder.astro';
+import { useTranslations, localizedSegment, type Locale } from '../i18n/utils';
+import type { Project } from '../lib/types';
+
+interface Props {
+  project: Project;
+  next: Project | null;
+  lang: Locale;
+}
+
+const { project, next, lang } = Astro.props;
+const t = useTranslations(lang);
+const description = project.description?.[lang];
+const backHref = `/${lang}/`;
+const nextHref = next ? `/${lang}/${localizedSegment('work', lang)}/${next.slug}/` : null;
+---
+
+<BaseLayout lang={lang} title={`${project.client} — ${project.title}`} description={description}>
+  <article class="pt-28">
+    <div class="mx-auto max-w-[1800px] px-6 md:px-10">
+      <a href={backHref} class="mb-8 inline-block font-body text-xs uppercase tracking-wide text-paper-400 hover:text-paper-50">
+        &larr; {t('project.back')}
+      </a>
+
+      <VideoPlaceholder project={project} playEmbed />
+
+      <div class="mt-8 grid grid-cols-1 gap-8 border-t border-ink-800 pt-8 md:grid-cols-3">
+        <div class="md:col-span-2">
+          <h1 class="font-display text-h1 uppercase leading-none text-paper-50" style="font-size: var(--text-h1);">
+            {project.client}
+          </h1>
+          <p class="mt-2 font-body text-lead text-paper-400">{project.title}</p>
+          {description && <p class="mt-6 max-w-2xl font-body text-paper-200">{description}</p>}
+        </div>
+
+        <dl class="grid grid-cols-2 gap-4 font-body text-sm md:grid-cols-1">
+          <div>
+            <dt class="text-xs uppercase tracking-wide text-paper-400">{t('project.client')}</dt>
+            <dd class="mt-1 text-paper-50">{project.client}</dd>
+          </div>
+          {
+            project.year && (
+              <div>
+                <dt class="text-xs uppercase tracking-wide text-paper-400">{t('project.year')}</dt>
+                <dd class="mt-1 text-paper-50">{project.year}</dd>
+              </div>
+            )
+          }
+          <div>
+            <dt class="text-xs uppercase tracking-wide text-paper-400">{t('project.category')}</dt>
+            <dd class="mt-1 text-paper-50">{t(`category.${project.category}` as Parameters<typeof t>[0])}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    {
+      next && nextHref && (
+        <a href={nextHref} class="mt-24 block border-t border-ink-800 px-6 py-16 transition-colors hover:bg-ink-900 md:px-10">
+          <div class="mx-auto max-w-[1800px]">
+            <p class="font-body text-xs uppercase tracking-wide text-paper-400">{t('project.next')}</p>
+            <p class="mt-3 font-display text-h2 uppercase leading-none text-paper-50" style="font-size: var(--text-h2);">
+              {next.client}
+            </p>
+          </div>
+        </a>
+      )
+    }
+  </article>
+</BaseLayout>

@@ -1,0 +1,56 @@
+---
+import { Icon } from 'astro-icon/components';
+import { useTranslations, localizedSegment, type Locale } from '../i18n/utils';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+
+const legalLinks = [
+  { href: `/${lang}/${localizedSegment('imprint', lang)}/`, label: t('footer.imprint') },
+  { href: `/${lang}/${localizedSegment('privacy', lang)}/`, label: t('footer.privacy') },
+];
+
+const socialLinks = [
+  { href: 'https://vimeo.com/impossiblefilm', label: 'Vimeo', icon: 'lucide:play' },
+  { href: 'https://www.instagram.com/impossiblefilms.de/', label: 'Instagram', icon: 'lucide:instagram' },
+];
+---
+
+<footer class="border-t border-ink-800 px-6 py-10 md:px-10">
+  <div class="mx-auto flex max-w-[1800px] flex-col gap-8 md:flex-row md:items-center md:justify-between">
+    <div class="flex items-center gap-5">
+      {
+        socialLinks.map((social) => (
+          <a
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.label}
+            class="text-paper-400 transition-colors hover:text-paper-50"
+          >
+            <Icon name={social.icon} class="h-5 w-5" />
+          </a>
+        ))
+      }
+    </div>
+
+    <nav class="flex items-center gap-6 font-body text-xs uppercase tracking-wide text-paper-400">
+      {
+        legalLinks.map((link) => (
+          <a href={link.href} class="transition-colors hover:text-paper-50">
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <p class="font-body text-xs text-paper-400">
+      &copy; {year} {t('site.name')}. {t('footer.rights')}
+    </p>
+  </div>
+</footer>
