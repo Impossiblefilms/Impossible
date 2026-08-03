@@ -9,4 +9,8 @@ export const company = {
   email: 'info@impossiblefilms.de',
   phone: '+49 40 300 399 300',
   phoneHref: '+4940300399300',
+  managingDirectors: ['Daniel König', 'Felix Martens'],
+  registerCourt: 'Amtsgericht Hamburg',
+  registerNumber: 'HRB 122849',
+  vatId: 'DE283139708',
 };

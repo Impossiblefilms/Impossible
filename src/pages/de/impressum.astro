@@ -27,7 +27,9 @@ const t = useTranslations('de');
 
       <div>
         <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Vertreten durch</h2>
-        <p>[TODO: Name der/des Vertretungsberechtigten]</p>
+        <p>
+          Geschäftsführer: {company.managingDirectors.join(' & ')}
+        </p>
       </div>
 
       <div>
@@ -41,14 +43,17 @@ const t = useTranslations('de');
       <div>
         <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Registereintrag</h2>
         <p>
-          [TODO: Registergericht]<br />
-          [TODO: Registernummer]
+          {company.registerCourt}<br />
+          {company.registerNumber}
         </p>
       </div>
 
       <div>
         <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Umsatzsteuer-ID</h2>
-        <p>[TODO: USt-IdNr. gemäß § 27 a UStG]</p>
+        <p>
+          Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br />
+          {company.vatId}
+        </p>
       </div>
 
       <div>
@@ -56,6 +61,7 @@ const t = useTranslations('de');
           Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV
         </h2>
         <p>
+          {company.managingDirectors.join(' & ')}<br />
           {company.name}<br />
           {company.street}, {company.postalCode} {company.city}
         </p>

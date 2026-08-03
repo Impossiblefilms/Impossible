@@ -28,7 +28,7 @@ const t = useTranslations('en');
 
       <div>
         <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Represented by</h2>
-        <p>[TODO: Name of authorized representative]</p>
+        <p>Managing directors: {company.managingDirectors.join(' & ')}</p>
       </div>
 
       <div>
@@ -42,14 +42,17 @@ const t = useTranslations('en');
       <div>
         <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">Register entry</h2>
         <p>
-          [TODO: Register court]<br />
-          [TODO: Register number]
+          {company.registerCourt}<br />
+          {company.registerNumber}
         </p>
       </div>
 
       <div>
         <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">VAT ID</h2>
-        <p>[TODO: VAT identification number per § 27a UStG]</p>
+        <p>
+          VAT identification number per § 27 a German VAT Act (UStG):<br />
+          {company.vatId}
+        </p>
       </div>
 
       <div>
@@ -57,6 +60,7 @@ const t = useTranslations('en');
           Responsible for content per § 18 (2) MStV
         </h2>
         <p>
+          {company.managingDirectors.join(' & ')}<br />
           {company.name}<br />
           {company.street}, {company.postalCode} {company.city}
         </p>
