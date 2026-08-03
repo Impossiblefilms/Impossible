@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { company } from '../../lib/company';
 import { useTranslations } from '../../i18n/utils';
 
 const t = useTranslations('en');
@@ -18,7 +19,12 @@ const t = useTranslations('en');
     <div class="mt-10 space-y-8 text-sm leading-relaxed">
       <div>
         <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">1. Controller</h2>
-        <p>[TODO: Name, address and contact details of the controller — see imprint]</p>
+        <p>
+          {company.name}<br />
+          {company.street}, {company.postalCode} {company.city}<br />
+          Email: {company.email}<br />
+          Phone: {company.phone}
+        </p>
       </div>
 
       <div>
@@ -32,9 +38,11 @@ const t = useTranslations('en');
       <div>
         <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">3. Hosting</h2>
         <p>
-          [TODO: Add hosting provider details once the site goes live (likely Hostinger). Server log
-          files (e.g. IP address, date/time, page requested) are automatically collected by the
-          hosting provider when the website is accessed.]
+          This website is hosted by Hostinger. When you access the website, the hosting provider
+          automatically collects so-called server log files transmitted by your browser (including IP
+          address, date/time of the request, page requested, browser used). This data is technically
+          necessary to deliver the website securely and reliably, and is not combined with other data
+          sources.
         </p>
       </div>
 
@@ -49,15 +57,26 @@ const t = useTranslations('en');
       <div>
         <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">5. Embedded videos (Vimeo)</h2>
         <p>
-          To display our projects, videos from Vimeo (Vimeo Inc., 555 West 18th Street, New York,
-          USA) may be embedded. Playing a video may establish a connection to Vimeo's servers and
-          transmit data (including your IP address) to Vimeo. [TODO: add a link to Vimeo's privacy
-          policy once embeds are actively used.]
+          To display our projects, we embed videos from Vimeo (Vimeo Inc., 555 West 18th Street, New
+          York, USA). The Vimeo player is <strong>not</strong> loaded automatically when the page is opened —
+          it is initially shown only as a preview image. Only once you actively click the play button
+          is a connection established to Vimeo's servers, transmitting data (including your IP
+          address) to Vimeo. For more information, see{' '}
+          <a href="https://vimeo.com/privacy" target="_blank" rel="noopener noreferrer" class="text-paper-50 underline hover:text-paper-400">Vimeo's privacy policy</a>.
         </p>
       </div>
 
       <div>
-        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">6. Contacting us</h2>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">6. Web fonts</h2>
+        <p>
+          This website uses web fonts for consistent typography. All fonts used are hosted locally on
+          our own server — there is no connection to external font providers (such as Google Fonts),
+          so no data is transmitted to third parties for this purpose.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">7. Contacting us</h2>
         <p>
           When you contact us by email, the data you provide (including your email address, and
           optionally your name and phone number) will be stored in order to process your inquiry.
@@ -65,7 +84,7 @@ const t = useTranslations('en');
       </div>
 
       <div>
-        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">7. Your rights</h2>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">8. Your rights</h2>
         <p>
           You have the right to access, rectify, erase and restrict the processing of your personal
           data, as well as a right to object to processing and a right to data portability. You also

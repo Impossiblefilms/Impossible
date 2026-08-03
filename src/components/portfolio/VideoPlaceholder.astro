@@ -11,37 +11,44 @@ interface Props {
 }
 
 const { project, playEmbed = false } = Astro.props;
-const showEmbed = playEmbed && project.vimeoId;
-const showThumbnail = !showEmbed && project.thumbnail;
+const canEmbed = playEmbed && Boolean(project.vimeoId);
+const showThumbnail = !canEmbed && project.thumbnail;
 ---
 
 <div class="relative aspect-video w-full overflow-hidden rounded-2xl bg-ink-900">
   {
-    showEmbed ? (
-      <iframe
-        class="absolute inset-0 h-full w-full"
-        src={`https://player.vimeo.com/video/${project.vimeoId}?title=0&byline=0&portrait=0`}
-        loading="lazy"
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowfullscreen
-        title={project.title}
-      />
-    ) : showThumbnail ? (
-      <>
-        <img
-          src={project.thumbnail}
-          alt={project.title}
-          loading="lazy"
-          class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-        />
-        {project.vimeoId && (
-          <span class="absolute inset-0 flex items-center justify-center bg-ink-950/0 transition-colors group-hover:bg-ink-950/20">
-            <span class="flex h-14 w-14 items-center justify-center rounded-full bg-paper-50/90 text-ink-950 opacity-0 transition-opacity group-hover:opacity-100">
-              <Icon name="lucide:play" class="ml-0.5 h-6 w-6" />
-            </span>
-          </span>
+    canEmbed ? (
+      // Click-to-load facade: no request to vimeo.com (and no third-party
+      // cookies) until the visitor actively chooses to watch — avoids
+      // needing a cookie-consent gate just to view the page.
+      <button
+        type="button"
+        class="vimeo-trigger group absolute inset-0 h-full w-full cursor-pointer"
+        data-vimeo-id={project.vimeoId}
+        data-title={project.title}
+        aria-label={`${project.title} abspielen`}
+      >
+        {project.thumbnail && (
+          <img
+            src={project.thumbnail}
+            alt={project.title}
+            loading="lazy"
+            class="absolute inset-0 h-full w-full object-cover"
+          />
         )}
-      </>
+        <span class="absolute inset-0 flex items-center justify-center bg-ink-950/25 transition-colors group-hover:bg-ink-950/40">
+          <span class="flex h-16 w-16 items-center justify-center rounded-full bg-paper-50/90 text-ink-950 transition-transform group-hover:scale-110">
+            <Icon name="lucide:play" class="ml-1 h-7 w-7" />
+          </span>
+        </span>
+      </button>
+    ) : showThumbnail ? (
+      <img
+        src={project.thumbnail}
+        alt={project.title}
+        loading="lazy"
+        class="absolute inset-0 h-full w-full object-cover"
+      />
     ) : (
       <div
         class="absolute inset-0 flex items-center justify-center px-4"
@@ -57,3 +64,25 @@ const showThumbnail = !showEmbed && project.thumbnail;
     )
   }
 </div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.vimeo-trigger').forEach((trigger) => {
+    trigger.addEventListener(
+      'click',
+      () => {
+        const vimeoId = trigger.dataset.vimeoId;
+        if (!vimeoId) return;
+
+        const iframe = document.createElement('iframe');
+        iframe.className = 'absolute inset-0 h-full w-full';
+        iframe.src = `https://player.vimeo.com/video/${vimeoId}?title=0&byline=0&portrait=0&autoplay=1`;
+        iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+        iframe.allowFullscreen = true;
+        iframe.title = trigger.dataset.title ?? '';
+
+        trigger.replaceWith(iframe);
+      },
+      { once: true }
+    );
+  });
+</script>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { company } from '../../lib/company';
 import { useTranslations } from '../../i18n/utils';
 
 const t = useTranslations('de');
@@ -17,7 +18,12 @@ const t = useTranslations('de');
     <div class="mt-10 space-y-8 text-sm leading-relaxed">
       <div>
         <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">1. Verantwortlicher</h2>
-        <p>[TODO: Name, Anschrift, Kontakt des Verantwortlichen — siehe Impressum]</p>
+        <p>
+          {company.name}<br />
+          {company.street}, {company.postalCode} {company.city}<br />
+          E-Mail: {company.email}<br />
+          Telefon: {company.phone}
+        </p>
       </div>
 
       <div>
@@ -32,9 +38,11 @@ const t = useTranslations('de');
       <div>
         <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">3. Hosting</h2>
         <p>
-          [TODO: Angaben zum Hosting-Anbieter ergänzen, sobald die Seite live geschaltet ist
-          (voraussichtlich Hostinger). Beim Aufruf der Website werden durch den Hosting-Anbieter
-          automatisch Server-Logfiles erhoben (z. B. IP-Adresse, Datum/Uhrzeit, aufgerufene Seite).]
+          Diese Website wird bei Hostinger gehostet. Beim Aufruf der Website erhebt der
+          Hosting-Anbieter automatisch sogenannte Server-Logfiles, die Ihr Browser übermittelt (u. a.
+          IP-Adresse, Datum/Uhrzeit der Anfrage, aufgerufene Seite, verwendeter Browser). Diese Daten
+          sind technisch erforderlich, um die Website sicher und zuverlässig auszuliefern, und werden
+          nicht mit anderen Datenquellen zusammengeführt.
         </p>
       </div>
 
@@ -50,16 +58,27 @@ const t = useTranslations('de');
       <div>
         <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">5. Eingebettete Videos (Vimeo)</h2>
         <p>
-          Für die Darstellung unserer Projekte können Videos des Anbieters Vimeo (Vimeo Inc., 555 West
-          18th Street, New York, USA) eingebunden werden. Beim Abspielen eines Videos kann eine
-          Verbindung zu Servern von Vimeo hergestellt und dabei Daten (u. a. IP-Adresse) an Vimeo
-          übertragen werden. [TODO: Verlinkung auf die Datenschutzerklärung von Vimeo ergänzen, sobald
-          Embeds aktiv genutzt werden.]
+          Für die Darstellung unserer Projekte binden wir Videos des Anbieters Vimeo (Vimeo Inc., 555
+          West 18th Street, New York, USA) ein. Der Vimeo-Player wird jedoch <strong>nicht</strong> automatisch
+          beim Aufruf der Seite geladen, sondern zunächst nur als Vorschaubild angezeigt. Erst wenn Sie
+          aktiv auf das Wiedergabesymbol klicken, wird eine Verbindung zu den Servern von Vimeo
+          hergestellt und dabei Daten (u. a. Ihre IP-Adresse) an Vimeo übertragen. Weitere Informationen
+          finden Sie in der <a href="https://vimeo.com/privacy" target="_blank" rel="noopener noreferrer" class="text-paper-50 underline hover:text-paper-400">Datenschutzerklärung von Vimeo</a>.
         </p>
       </div>
 
       <div>
-        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">6. Kontaktaufnahme</h2>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">6. Web-Schriften</h2>
+        <p>
+          Diese Website nutzt sogenannte Web-Fonts zur einheitlichen Darstellung von Schriftarten. Alle
+          verwendeten Schriften sind lokal auf unserem Server hinterlegt — es findet keine Verbindung zu
+          externen Font-Anbietern (z. B. Google Fonts) statt, es werden also keine Daten an Dritte
+          übertragen.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">7. Kontaktaufnahme</h2>
         <p>
           Bei einer Kontaktaufnahme per E-Mail werden die von Ihnen mitgeteilten Daten (u. a.
           E-Mail-Adresse, ggf. Name und Telefonnummer) von uns gespeichert, um Ihre Anfrage zu
@@ -68,7 +87,7 @@ const t = useTranslations('de');
       </div>
 
       <div>
-        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">7. Ihre Rechte</h2>
+        <h2 class="mb-2 text-xs uppercase tracking-wide text-paper-400">8. Ihre Rechte</h2>
         <p>
           Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der
           Verarbeitung Ihrer personenbezogenen Daten sowie ein Widerspruchsrecht gegen die
